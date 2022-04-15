@@ -1,5 +1,6 @@
 <h1>Welcome to Takasu!</h1>
 <h4>Currently signed-in user: <%= current_user.email %></h4>
 <%= link_to "Go to your library", user_path(current_user) %>
+<%= link_to "Search other users' libraries", search_index_path %>
 <p></p>
 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>

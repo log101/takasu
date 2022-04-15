@@ -13,10 +13,23 @@
  *= require_tree .
  *= require_self
  */
+a {
+    all: unset;
+    text-decoration: none;
+}
+
 .edit-link {
     color: blue;
 }
 
+.edit-link:visited {
+    color: blue;
+}
+
 .delete-link {
+    color: red;
+}
+
+.delete-link:visited {
     color: red;
 }
