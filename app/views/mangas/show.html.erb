@@ -17,7 +17,11 @@
 
 <p>
   <strong>Image:</strong>
-  <%= image_tag @manga.image_url, size: "128x128" %>
+  <% if @manga.image_url %>
+    <%= image_tag @manga.image_url, size: "128x128" %>
+  <% else %>
+    <p>No image provided</p>
+  <% end %>
 </p>
 
 <p>

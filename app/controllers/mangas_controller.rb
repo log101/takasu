@@ -1,9 +1,10 @@
 class MangasController < ApplicationController
   before_action :set_manga, only: %i[ show edit update destroy ]
 
+
   # GET /mangas or /mangas.json
   def index
-    @mangas = Manga.all
+    @mangas = Manga.where(user_id: current_user.id)
   end
 
   # GET /mangas/1 or /mangas/1.json
@@ -22,10 +23,11 @@ class MangasController < ApplicationController
   # POST /mangas or /mangas.json
   def create
     @manga = Manga.new(manga_params)
+    @manga.user = current_user
 
     respond_to do |format|
       if @manga.save
-        format.html { redirect_to manga_url(@manga), notice: "Manga was successfully created." }
+        format.html { redirect_to @manga.user, notice: "Manga was successfully created." }
         format.json { render :show, status: :created, location: @manga }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,7 @@ class MangasController < ApplicationController
   def update
     respond_to do |format|
       if @manga.update(manga_params)
-        format.html { redirect_to manga_url(@manga), notice: "Manga was successfully updated." }
+        format.html { redirect_to @manga.user, notice: "Manga was successfully updated." }
         format.json { render :show, status: :ok, location: @manga }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +54,7 @@ class MangasController < ApplicationController
     @manga.destroy
 
     respond_to do |format|
-      format.html { redirect_to mangas_url, notice: "Manga was successfully destroyed." }
+      format.html { redirect_to @manga.user, notice: "Manga was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +67,6 @@ class MangasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def manga_params
-      params.require(:manga).permit(:title, :volumes, :description, :image, :user_id)
+      params.require(:manga).permit(:title, :volumes, :description, :image)
     end
 end

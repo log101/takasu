@@ -1,2 +1,4 @@
 <h1>Welcome to Takasu!</h1>
+<h4>Signed user: <%= current_user.email %></h4>
+<%= link_to "Go to your library", mangas_path %>
 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>

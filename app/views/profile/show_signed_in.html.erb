@@ -1,0 +1,13 @@
+<h4>Profile</h4>
+<p><%= @user.email %></p>
+<p>Mangas:</p>
+<ul>
+  <% @user.mangas.each do |manga| %>
+    <li>
+      <%= manga.title %>
+      <%= link_to 'Edit', edit_manga_path(manga), class: "edit-link" %>
+      <%= link_to 'Destroy', manga, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-link" %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "Add new", new_manga_path %>

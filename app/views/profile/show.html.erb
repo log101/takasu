@@ -1,0 +1,8 @@
+<h4>Profile</h4>
+<p><%= @user.email %></p>
+<p>Mangas:</p>
+<ul>
+  <% @user.mangas.each do |manga| %>
+    <li><%= manga.title %></li>
+  <% end %>
+</ul>
