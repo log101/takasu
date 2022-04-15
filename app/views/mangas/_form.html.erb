@@ -27,8 +27,9 @@
   </div>
 
   <div class="field">
+    <%= form.label :image %>
     <%= form.hidden_field :image, value: manga.cached_image_data %>
-    <%= form.file_field :image %>
+    <%= form.file_field :image, id: "image-field" %>
   </div>
 
   <div class="actions">

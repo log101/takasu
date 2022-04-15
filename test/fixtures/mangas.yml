@@ -1,15 +1,29 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  volumes: MyString
-  description: MyString
-  image_url: MyString
-  user: one
+alchemist:
+  title: Full Metal Alchemist
+  volumes: 1-30
+  description: Years later, the young alchemists travel across the country looking for the Philosopher's Stone, in the hopes of recovering their old bodies with its power.
+  image_data: <%= TestData.image_data %>
+  user: ali
 
-two:
-  title: MyString
-  volumes: MyString
-  description: MyString
-  image_url: MyString
-  user: two
+berserk:
+  title: Berserk
+  volumes: 1-14 15-19
+  description: Guts, a former mercenary now known as the Black Swordsman, is out for revenge.
+  image_data: <%= TestData.image_data %>
+  user: ali
+
+ansatsu:
+  title: Ansatsu Kyoushitsu
+  volumes: 1-25
+  description: Adapted from the humorous hit manga by Yuusei Matsui, Ansatsu Kyoushitsu tells the story of these junior high pupils as they polish their assassination skills and grow in order to stand strong against the oppressive school system
+  image_data: <%= TestData.image_data %>
+  user: veli
+
+GTO:
+  title: Great Teacher Onizuka
+  volumes: 1-14 15-19
+  description: Great Teacher Onizuka follows the incredible, though often ridiculous, antics of the titular teacher as he attempts to outwit and win over the cunning Class 3-4 that is determined to have him removed from the school.
+  image_data: <%= TestData.image_data %>
+  user: veli

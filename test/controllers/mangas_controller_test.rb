@@ -1,13 +1,12 @@
 require 'test_helper'
 
 class MangasControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @manga = mangas(:one)
-  end
+  include Devise::Test::IntegrationHelpers
 
-  test "should get index" do
-    get mangas_url
-    assert_response :success
+  setup do
+    @manga = mangas(:alchemist)
+    @user = users(:ali)
+    sign_in @user
   end
 
   test "should get new" do
@@ -17,15 +16,18 @@ class MangasControllerTest < ActionDispatch::IntegrationTest
 
   test "should create manga" do
     assert_difference('Manga.count') do
-      post mangas_url, params: { manga: { description: @manga.description, image_url: @manga.image_url, title: @manga.title, user_id: @manga.user_id, volumes: @manga.volumes } }
+      post mangas_url, params: {
+        manga: {
+          description: @manga.description,
+          image_data: @manga.image_data,
+          title: @manga.title,
+          user_id: @manga.user_id,
+          volumes: @manga.volumes,
+        }
+      }
     end
 
-    assert_redirected_to manga_url(Manga.last)
-  end
-
-  test "should show manga" do
-    get manga_url(@manga)
-    assert_response :success
+    assert_redirected_to user_url @user
   end
 
   test "should get edit" do
@@ -34,8 +36,16 @@ class MangasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update manga" do
-    patch manga_url(@manga), params: { manga: { description: @manga.description, image_url: @manga.image_url, title: @manga.title, user_id: @manga.user_id, volumes: @manga.volumes } }
-    assert_redirected_to manga_url(@manga)
+    patch manga_url(@manga), params: {
+      manga: {
+        description: @manga.description,
+        title: @manga.title,
+        user_id: @manga.user_id,
+        volumes: @manga.volumes,
+        image_data: @manga.image_data,
+      }
+    }
+    assert_redirected_to user_url @user
   end
 
   test "should destroy manga" do
@@ -43,6 +53,6 @@ class MangasControllerTest < ActionDispatch::IntegrationTest
       delete manga_url(@manga)
     end
 
-    assert_redirected_to mangas_url
+    assert_redirected_to user_url @user
   end
 end

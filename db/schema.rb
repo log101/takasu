@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_04_15_040237) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "image_data"
+    t.jsonb "image_data"
     t.index ["user_id"], name: "index_mangas_on_user_id"
   end
 
