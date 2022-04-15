@@ -16,13 +16,13 @@
 </p>
 
 <p>
-  <strong>Image url:</strong>
-  <%= @manga.image_url %>
+  <strong>Image:</strong>
+  <%= image_tag @manga.image_url, size: "128x128" %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @manga.user_id %>
+  <%= @manga.user.email %>
 </p>
 
 <%= link_to 'Edit', edit_manga_path(@manga) %> |
