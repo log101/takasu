@@ -2,6 +2,6 @@
 <h4>Currently signed-in user: <%= current_user.email %></h4>
 <%= link_to "Go to your library", user_path(current_user) %>
 <br>
-<%= link_to "Search other users' libraries", search_path %>
+<%= link_to "Search in other users' libraries", search_path %>
 <p></p>
 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>

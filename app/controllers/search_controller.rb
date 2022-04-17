@@ -7,7 +7,16 @@ class SearchController < ApplicationController
       respond_to do |format|
         format.html do
           render json: {
-            results: @results.map {|item| item.title}
+            results:
+              @results
+                .filter { |item| item.user.id != current_user.id }
+                .map do |item|
+                {
+                  id: item.id,
+                  title: item.title,
+                  link: user_path(item.user_id)
+                }
+              end
           }.to_json
         end
       end

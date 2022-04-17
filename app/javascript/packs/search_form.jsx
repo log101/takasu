@@ -13,8 +13,7 @@ const SearchResults = (props) => {
     if (props.searchFilter === "") return <p></p>
     else {
         return props.results
-            .filter(res => res.toLowerCase().startsWith(props.searchFilter))
-            .map(res => <p key={res}>{res}</p>)
+            .map(res => <a class="manga-search-link" href={res.link}><p key={res.id}>{res.title}</p></a>)
     }
 }
 
@@ -24,12 +23,13 @@ const SearchForm = (props) => {
 
     const getMangas = () => {
         return axios
-            .get(`http://localhost:3000/search?query=`)
+            .get(`http://localhost:3000/search?query=${newSearch}`)
             .then(res => setNewResult(res.data))
     }
 
     const changeHandler = (event) => {
         setNewSearch(event.target.value)
+        getMangas()
     }
 
     useEffect(() => { getMangas () }, [])

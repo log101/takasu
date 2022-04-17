@@ -14,7 +14,6 @@
  *= require_self
  */
 a {
-    all: unset;
     text-decoration: none;
 }
 
@@ -32,4 +31,9 @@ a {
 
 .delete-link:visited {
     color: red;
+}
+
+.manga-search-link:hover {
+    color: blue;
+    text-decoration: underline;
 }
