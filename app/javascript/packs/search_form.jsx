@@ -6,49 +6,44 @@ import axios from 'axios'
 
 const App = (props) => {
 
-    return <SearchForm />
+    return <SearchForm/>
 }
 
-const SearchResults = (props) => props.results.map(item => <p>{item}</p>)
+const SearchResults = (props) => {
+    if (props.searchFilter === "") return <p></p>
+    else {
+        return props.results
+            .filter(res => res.toLowerCase().startsWith(props.searchFilter))
+            .map(res => <p key={res}>{res}</p>)
+    }
+}
 
 const SearchForm = (props) => {
     const [newSearch, setNewSearch] = useState("")
-    const [newResult, setNewResult] = useState({result: []})
-
-
-    const submitHandler = (event) => {
-        event.preventDefault()
-        axios
-            .get(`http://localhost:3000/search?query=${newSearch}`)
-            .then(res => setNewResult(res.data))
-    }
+    const [newResult, setNewResult] = useState({results: []})
 
     const getMangas = () => {
         return axios
-                .get(`http://localhost:3000/search?query=${newSearch}`)
-                .then(res => setNewResult(res.data))
+            .get(`http://localhost:3000/search?query=`)
+            .then(res => setNewResult(res.data))
     }
 
     const changeHandler = (event) => {
         setNewSearch(event.target.value)
-        getMangas()
     }
+
+    useEffect(() => { getMangas () }, [])
 
     return (
         <div>
-            <p>newSearch {newSearch}</p>
-            <p>results {newResult.result}</p>
-            <form onSubmit={submitHandler}>
+            <form>
                 <input value={newSearch} onChange={changeHandler}/>
                 <button type="submit">search</button>
             </form>
-            <SearchResults results={newResult.result} />
+            <SearchResults results={newResult.results} searchFilter={newSearch}/>
         </div>)
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(
-        <App/>,
-        document.getElementById("search-form")
-    )
-})
+ReactDOM.render(
+    <App/>,
+    document.getElementById("search-form"))
