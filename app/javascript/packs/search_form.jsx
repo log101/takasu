@@ -13,7 +13,7 @@ const SearchResults = (props) => {
     if (props.searchFilter === "") return <p></p>
     else {
         return props.results
-            .filter(res => res.startsWith(props.searchFilter))
+            .filter(res => res.toLowerCase().startsWith(props.searchFilter))
             .map(res => <p key={res}>{res}</p>)
     }
 }
@@ -32,15 +32,11 @@ const SearchForm = (props) => {
         setNewSearch(event.target.value)
     }
 
-    const submitHandler = (event) => {
-        event.preventDefault()
-    }
-
     useEffect(() => { getMangas () }, [])
 
     return (
         <div>
-            <form onSubmit={submitHandler}>
+            <form>
                 <input value={newSearch} onChange={changeHandler}/>
                 <button type="submit">search</button>
             </form>
