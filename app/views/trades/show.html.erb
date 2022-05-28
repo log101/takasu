@@ -1,19 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Sender:</strong>
-  <%= @trade.sender_id %>
-</p>
+<h1>Trade Request</h1>
+<h2>Your mangas:</h2>
+<ul>
+  <% @sender.mangas.each do |manga| %>
+    <li>
+      <%= manga.title %>
+      <%= link_to 'Add', trades_new_trade_item_path(manga_id: manga.id, trade_id: @trade.id) %>
+    </li>
 
-<p>
-  <strong>Recipient:</strong>
-  <%= @trade.recipient_id %>
-</p>
+  <% end %>
+</ul>
 
-<p>
-  <strong>Confirmed:</strong>
-  <%= @trade.confirmed %>
-</p>
+<h2>Their mangas:</h2>
+<ul>
+  <% @recipient.mangas.each do |manga| %>
+    <li><%= manga.title %></li>
+  <% end %>
+</ul>
+
+<h2>Request</h2>
+<ul>
+  <% @trade.trade_items.each do |trade_item| %>
+    <li><%= trade_item.manga.title %></li>
+  <% end %>
+</ul>
+
+
 
 <%= link_to 'Edit', edit_trade_path(@trade) %> |
 <%= link_to 'Back', trades_path %>

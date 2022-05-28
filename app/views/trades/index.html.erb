@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>id</th>
       <th>Sender</th>
       <th>Recipient</th>
       <th>Confirmed</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @trades.each do |trade| %>
       <tr>
+        <td><%= trade.id %></td>
         <td><%= trade.sender_id %></td>
         <td><%= trade.recipient_id %></td>
         <td><%= trade.confirmed %></td>

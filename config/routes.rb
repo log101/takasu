@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :trades
+  resources :trades, except: [:show]
   get 'search/', to: 'search#index'
   get 'profile/show'
+  get 'trades/new_trade_item', to: 'trades#add_trade_item'
+  get 'trades/:id', to: 'trades#show'
   resources :mangas, except: [:index, :show]
 
   devise_for :users

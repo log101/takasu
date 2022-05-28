@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_28_070558) do
+ActiveRecord::Schema.define(version: 2022_05_28_092106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 2022_05_28_070558) do
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "image_data"
     t.index ["user_id"], name: "index_mangas_on_user_id"
+  end
+
+  create_table "trade_items", force: :cascade do |t|
+    t.bigint "manga_id", null: false
+    t.bigint "trade_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["manga_id"], name: "index_trade_items_on_manga_id"
+    t.index ["trade_id"], name: "index_trade_items_on_trade_id"
   end
 
   create_table "trades", force: :cascade do |t|
@@ -50,4 +59,6 @@ ActiveRecord::Schema.define(version: 2022_05_28_070558) do
   end
 
   add_foreign_key "mangas", "users"
+  add_foreign_key "trade_items", "mangas"
+  add_foreign_key "trade_items", "trades"
 end
