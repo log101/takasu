@@ -23,7 +23,7 @@ const SearchForm = (props) => {
 
     const getMangas = () => {
         return axios
-            .get(`http://localhost:3000/search?query=${newSearch}`)
+            .get(`/search?query=${newSearch}`)
             .then(res => setNewResult(res.data))
     }
 
