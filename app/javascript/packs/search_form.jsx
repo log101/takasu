@@ -37,7 +37,7 @@ const SearchForm = (props) => {
     return (
         <div>
             <form>
-                <input value={newSearch} onChange={changeHandler}/>
+                <input id="search-bar" value={newSearch} onChange={changeHandler}/>
                 <button type="submit">search</button>
             </form>
             <SearchResults results={newResult.results} searchFilter={newSearch}/>

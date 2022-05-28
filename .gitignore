@@ -36,4 +36,4 @@
 yarn-debug.log*
 .yarn-integrity
 
-/config/initializers/algoliasearch.rb
+# /config/initializers/algoliasearch.rb
