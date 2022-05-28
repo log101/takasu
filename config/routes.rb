@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trades
   get 'search/', to: 'search#index'
   get 'profile/show'
   resources :mangas, except: [:index, :show]

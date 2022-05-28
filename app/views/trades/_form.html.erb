@@ -1,0 +1,32 @@
+<%= form_with(model: trade, local: true) do |form| %>
+  <% if trade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trade.errors.count, "error") %> prohibited this trade from being saved:</h2>
+
+      <ul>
+        <% trade.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :sender_id %>
+    <%= form.text_field :sender_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :recipient_id %>
+    <%= form.text_field :recipient_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :confirmed %>
+    <%= form.check_box :confirmed %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
