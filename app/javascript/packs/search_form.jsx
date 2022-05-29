@@ -10,10 +10,16 @@ const App = (props) => {
 }
 
 const SearchResults = (props) => {
-    if (props.searchFilter === "") return <p></p>
-    else {
+    const searchResults = props.results
+        .map(res => <a class="manga-search-link" href={res.link}><p key={res.id}>{res.title}</p></a>)
+    if (props.searchFilter === "") {
+        return <div>
+            <p>Recommandations</p>
+            <p>{searchResults}</p>
+        </div>
+    } else {
         return props.results
-            .map(res => <a class="manga-search-link" href={res.link}><p key={res.id}>{res.title}</p></a>)
+            .map(res => <a  key={res.id} class="manga-search-link" href={res.link}><p>{res.title}</p></a>)
     }
 }
 
@@ -21,18 +27,18 @@ const SearchForm = (props) => {
     const [newSearch, setNewSearch] = useState("")
     const [newResult, setNewResult] = useState({results: []})
 
-    const getMangas = () => {
+    const getMangas = (search) => {
         return axios
-            .get(`/search?query=${newSearch}`)
+            .get(`/search?query=${search}`)
             .then(res => setNewResult(res.data))
     }
 
     const changeHandler = (event) => {
         setNewSearch(event.target.value)
-        getMangas()
+        getMangas(event.target.value)
     }
 
-    useEffect(() => { getMangas () }, [])
+    useEffect(() => { getMangas ("") }, [])
 
     return (
         <div>
