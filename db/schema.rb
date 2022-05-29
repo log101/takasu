@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_28_092106) do
+ActiveRecord::Schema.define(version: 2022_05_29_095259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,10 @@ ActiveRecord::Schema.define(version: 2022_05_28_092106) do
   create_table "trades", force: :cascade do |t|
     t.bigint "sender_id", null: false
     t.bigint "recipient_id", null: false
-    t.boolean "confirmed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "sender_confirmation"
+    t.boolean "recipient_confirmation"
     t.index ["recipient_id"], name: "index_trades_on_recipient_id"
     t.index ["sender_id"], name: "index_trades_on_sender_id"
   end

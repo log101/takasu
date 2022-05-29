@@ -3,5 +3,7 @@
 <%= link_to "Go to your library", user_path(current_user) %>
 <br>
 <%= link_to "Search in other users' libraries", search_path %>
-<p></p>
+<br>
+<%= link_to "Your trade requests", trades_path %>
+<hr>
 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>

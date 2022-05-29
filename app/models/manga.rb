@@ -7,6 +7,5 @@ class Manga < ApplicationRecord
   include AlgoliaSearch
 
   algoliasearch do
-
   end
 end

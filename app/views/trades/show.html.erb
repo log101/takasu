@@ -1,32 +1,55 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Trade Request</h1>
 <h2>Your mangas:</h2>
 <ul>
   <% @sender.mangas.each do |manga| %>
+    <% if not @trade_item_titles.include? manga.title %>
     <li>
       <%= manga.title %>
       <%= link_to 'Add', trades_new_trade_item_path(manga_id: manga.id, trade_id: @trade.id) %>
     </li>
-
+    <% end %>
   <% end %>
 </ul>
 
 <h2>Their mangas:</h2>
 <ul>
   <% @recipient.mangas.each do |manga| %>
-    <li><%= manga.title %></li>
+    <% if not @trade_item_titles.include? manga.title %>
+    <li>
+      <%= manga.title %>
+      <%= link_to 'Add', trades_new_trade_item_path(manga_id: manga.id, trade_id: @trade.id) %>
+    </li>
+    <% end %>
   <% end %>
 </ul>
 
 <h2>Request</h2>
-<ul>
-  <% @trade.trade_items.each do |trade_item| %>
-    <li><%= trade_item.manga.title %></li>
+<% if @trade.trade_items.length == 0%>
+  <p>No items here</p>
+<% else %>
+    <ul>
+      <% @trade.trade_items.each do |trade_item| %>
+        <li>
+          <% if trade_item.manga.user_id == current_user.id %>
+            <span style="color: #cc0000"><%= trade_item.manga.title %></span>
+          <% else %>
+            <span style="color: #00cc00"><%= trade_item.manga.title %></span>
+          <% end %>
+          <%= link_to 'Remove', trades_remove_trade_item_path(manga_id: trade_item.manga.id, trade_id: @trade.id) %>
+        </li>
+      <% end %>
+    </ul>
+<% end %>
+<br>
+
+<% if @trade.sender_id == current_user.id %>
+  <% if @trade.sender_confirmation %>
+    <%= link_to 'Undo Confirmation', trades_unconfirm_sender_path(id: @trade.id) %>
+  <% else %>
+    <%= link_to 'Confirm Trade', trades_confirm_sender_path(id: @trade.id) %>
   <% end %>
-</ul>
+<% end %>
 
-
-
-<%= link_to 'Edit', edit_trade_path(@trade) %> |
-<%= link_to 'Back', trades_path %>
+<hr>
+<%= link_to 'Back to Search', search_path %>
+<%= link_to 'Back to Trade Requests', trades_path %>
