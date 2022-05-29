@@ -9,7 +9,7 @@ class TradesController < ApplicationController
 
   # GET /trades/1 or /trades/1.json
   def show
-    @sender = current_user
+    @sender = Trade.find(params[:id]).sender
     @recipient = Trade.find(params[:id]).recipient
     @trade = Trade.find(params[:id])
     @trade_item_titles = @trade.trade_items.map { |trade_item| trade_item.manga.title }
@@ -67,6 +67,7 @@ class TradesController < ApplicationController
 
     #create(manga_id: params[:manga_id], trade_id: params[:trade_id])
     if @trade_item.save
+      @trade.update(sender_confirmation: false, recipient_confirmation: false)
       redirect_to trade_url(@trade), id: @trade_item.trade.recipient.id
     else
       redirect_to trade_url(@trade), notice: "Error while adding trade item"
@@ -85,6 +86,22 @@ class TradesController < ApplicationController
     end
   end
 
+  def confirm_recipient
+    @trade = Trade.find(params[:id])
+    @recipient_id = @trade.recipient_id
+
+    if @trade.update(recipient_confirmation: true)
+      if @trade.sender_confirmation
+        confirm_trade(@trade)
+      else
+        redirect_to trade_url(@trade), id: @trade.id, notice: "Trade request sent"
+      end
+    else
+      redirect_to trade_url(@trade), notice: "Error while processing trade request"
+    end
+
+  end
+
   def confirm_sender
     @trade = Trade.find(params[:id])
     if @trade.update(sender_confirmation: true)
@@ -100,6 +117,25 @@ class TradesController < ApplicationController
       redirect_to trade_url(@trade), id: @trade.id, notice: "Trade request cancelled"
     else
       redirect_to trade_url(@trade), notice: "Error while processing trade request"
+    end
+  end
+
+  def confirm_trade(trade)
+    @sender_id = trade.sender.id
+    @recipient_id = trade.recipient.id
+
+    trade.trade_items.each { |item|
+      if item.manga.user_id == @recipient_id
+        item.manga.update(user_id: @sender_id)
+      else
+        item.manga.update(user_id: @recipient_id)
+      end
+    }
+
+    if trade.destroy
+      redirect_to trades_url, notice: "Trade successfully completed"
+    else
+      redirect_to trades_url, notice: "Error while processing trade request"
     end
   end
 

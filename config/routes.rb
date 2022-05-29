@@ -4,8 +4,11 @@ Rails.application.routes.draw do
 
   get 'trades/new_trade_item', to: 'trades#add_trade_item'
   get 'trades/remove_trade_item', to: 'trades#remove_trade_item'
+
   get 'trades/confirm_sender', to: 'trades#confirm_sender'
   get 'trades/unconfirm_sender', to: 'trades#unconfirm_sender'
+  get 'trades/confirm_recipient', to: 'trades#confirm_recipient'
+
   get 'trades/:id', to: 'trades#show'
 
   resources :mangas, except: [:index, :show]

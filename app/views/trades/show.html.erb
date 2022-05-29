@@ -1,5 +1,11 @@
 <h1>Trade Request</h1>
-<h2>Your mangas:</h2>
+
+<% if @sender == current_user %>
+  <h2>Your mangas:</h2>
+<% else %>
+  <h2>Their mangas</h2>
+<% end %>
+
 <ul>
   <% @sender.mangas.each do |manga| %>
     <% if not @trade_item_titles.include? manga.title %>
@@ -11,7 +17,12 @@
   <% end %>
 </ul>
 
-<h2>Their mangas:</h2>
+<% if @sender == current_user %>
+  <h2>Their mangas:</h2>
+<% else %>
+  <h2>Your mangas</h2>
+<% end %>
+
 <ul>
   <% @recipient.mangas.each do |manga| %>
     <% if not @trade_item_titles.include? manga.title %>
@@ -48,6 +59,8 @@
   <% else %>
     <%= link_to 'Confirm Trade', trades_confirm_sender_path(id: @trade.id) %>
   <% end %>
+<% else %>
+  <%= link_to 'Confirm Trade', trades_confirm_recipient_path(id: @trade.id), data: { confirm: "Are you sure"} %>
 <% end %>
 
 <hr>
