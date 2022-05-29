@@ -3,8 +3,8 @@ class TradesController < ApplicationController
 
   # GET /trades or /trades.json
   def index
-    @sent_trades = Trade.where(sender_id: current_user.id)
-    @recieved_trades = Trade.where(recipient_id: current_user.id)
+    @sent_trades = Trade.where(sender_id: current_user.id, sender_confirmation: true)
+    @recieved_trades = Trade.where(recipient_id: current_user.id, sender_confirmation: true)
   end
 
   # GET /trades/1 or /trades/1.json
