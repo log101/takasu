@@ -11,15 +11,15 @@ const App = (props) => {
 
 const SearchResults = (props) => {
     const searchResults = props.results
-        .map(res => <a class="manga-search-link" href={res.link}><p key={res.id}>{res.title}</p></a>)
+        .map(res => <a key={res.id} className="manga-search-link" href={res.link}><p>{res.title}</p></a>)
     if (props.searchFilter === "") {
         return <div>
             <p>Recommandations</p>
-            <p>{searchResults}</p>
+            <div>{searchResults}</div>
         </div>
     } else {
         return props.results
-            .map(res => <a  key={res.id} class="manga-search-link" href={res.link}><p>{res.title}</p></a>)
+            .map(res => <a key={res.id} className="manga-search-link" href={res.link}><p>{res.title}</p></a>)
     }
 }
 
