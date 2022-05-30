@@ -1,24 +1,11 @@
-# README
+# Takasu
+### Manga Trading Platform
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- You can create your own manga library
+- You can search for other people's mangas (powered by *Algolia Search*)
+- You can send trade requests to other users
 
-Things you may want to cover:
+### Stack
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ruby on Rails
+- React
