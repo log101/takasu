@@ -1,4 +1,4 @@
-<h1>Your Trades Request</h1>
+<h1>Your Trade Requests</h1>
 
 <h2>Sent</h2>
 <% if @sent_trades.length == 0 %>
@@ -17,7 +17,7 @@
         <tr>
           <td><%= User.find(trade.recipient_id).email %></td>
           <td><%= link_to 'Show', trade %></td>
-          <td><%= link_to 'Remove', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Cancel', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -41,7 +41,7 @@
       <tr>
         <td><%= User.find(trade.sender_id).email %></td>
         <td><%= link_to 'Show', trade %></td>
-        <td><%= link_to 'Remove', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Reject', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </tbody>

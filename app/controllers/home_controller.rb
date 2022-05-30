@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
   def index
-    @sent_trades = Trade.where(sender_id: current_user.id, sender_confirmation: true)
-    @recieved_trades = Trade.where(recipient_id: current_user.id, sender_confirmation: true)
+    Trade.where(sender_confirmation: false).destroy_all
+    @sent_trades = current_user.sent_trades.where(sender_confirmation: true)
+    @recieved_trades = current_user.recieved_trades.where(sender_confirmation: true)
     @total_number_of_trades = @sent_trades.length + @recieved_trades.length
   end
 end

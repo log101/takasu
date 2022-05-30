@@ -8,4 +8,5 @@ class Manga < ApplicationRecord
 
   algoliasearch do
   end
+
 end

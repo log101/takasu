@@ -1,13 +1,14 @@
 require 'test_helper'
 
 class SearchControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get search_index_url
-    assert_response :success
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    sign_in users(:ali)
   end
 
-  test "should get search" do
-    get search_search_url
+  test "should get index" do
+    get search_url
     assert_response :success
   end
 

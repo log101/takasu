@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class TradesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @trade = trades(:one)
+    sign_in users(:ali)
   end
 
   test "should get index" do
@@ -10,14 +13,9 @@ class TradesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
-    get new_trade_url
-    assert_response :success
-  end
-
   test "should create trade" do
     assert_difference('Trade.count') do
-      post trades_url, params: { trade: { confirmed: @trade.confirmed, recipient_id: @trade.recipient_id, sender_id: @trade.sender_id } }
+      post trades_url, params: { trade: { recipient_confirmation: @trade.recipient_confirmation, sender_confirmation: @trade.sender_confirmation, recipient_id: @trade.recipient_id, sender_id: @trade.sender_id } }
     end
 
     assert_redirected_to trade_url(Trade.last)
@@ -34,7 +32,7 @@ class TradesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update trade" do
-    patch trade_url(@trade), params: { trade: { confirmed: @trade.confirmed, recipient_id: @trade.recipient_id, sender_id: @trade.sender_id } }
+    patch trade_url(@trade), params: { trade: { recipient_confirmation: @trade.recipient_confirmation, sender_confirmation: @trade.sender_confirmation, recipient_id: @trade.recipient_id, sender_id: @trade.sender_id } }
     assert_redirected_to trade_url(@trade)
   end
 

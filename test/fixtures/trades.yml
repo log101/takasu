@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  sender: one
-  recipient: one
-  confirmed: false
+  sender: ali
+  recipient: veli
+  sender_confirmation: false
+  recipient_confirmation: false
 
 two:
   sender: two
   recipient: two
-  confirmed: false
+  sender_confirmation: false
+  recipient_confirmation: false

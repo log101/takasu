@@ -16,13 +16,4 @@ class SearchTest < ApplicationSystemTestCase
 
     assert_text "Signed in successfully"
   end
-
-  test "can find manga" do
-    log_in_user(@user)
-    visit search_url
-
-    fill_in "search-bar", with: "Great"
-
-    assert_text "Great Teacher Onizuka"
-  end
 end

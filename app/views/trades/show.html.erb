@@ -40,7 +40,7 @@
 <% else %>
     <ul>
       <% @trade.trade_items.each do |trade_item| %>
-        <li>
+        <li class="trade-item">
           <% if trade_item.manga.user_id == current_user.id %>
             <span style="color: #cc0000"><%= trade_item.manga.title %></span>
           <% else %>

@@ -3,8 +3,8 @@ class TradesController < ApplicationController
 
   # GET /trades or /trades.json
   def index
-    @sent_trades = Trade.where(sender_id: current_user.id, sender_confirmation: true)
-    @recieved_trades = Trade.where(recipient_id: current_user.id, sender_confirmation: true)
+    @sent_trades = current_user.sent_trades.where(sender_confirmation: true)
+    @recieved_trades = current_user.recieved_trades.where(sender_confirmation: true)
   end
 
   # GET /trades/1 or /trades/1.json
@@ -80,6 +80,7 @@ class TradesController < ApplicationController
 
     #create(manga_id: params[:manga_id], trade_id: params[:trade_id])
     if @trade_item.destroy
+      @trade.update(sender_confirmation: false, recipient_confirmation: false)
       redirect_to trade_url(@trade), id: @trade_item.trade.recipient.id
     else
       redirect_to trade_url(@trade), notice: "Error while removing trade item"
@@ -147,7 +148,7 @@ class TradesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trade_params
-      params.require(:trade).permit(:sender_id, :recipient_id, :confirmed)
+      params.require(:trade).permit(:sender_id, :recipient_id, :sender_confirmation, :recipient_confirmation)
     end
 
     def trade_item_params
