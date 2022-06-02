@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   get 'search/', to: 'search#index'
   get 'profile/show'
 
-  get 'trades/new_trade_item', to: 'trades#add_trade_item'
-  get 'trades/remove_trade_item', to: 'trades#remove_trade_item'
+  get 'trades/new_trade_item', to: 'trade_item#add_trade_item'
+  get 'trades/remove_trade_item', to: 'trade_item#remove_trade_item'
 
   get 'trades/confirm_sender', to: 'trades#confirm_sender'
   get 'trades/unconfirm_sender', to: 'trades#unconfirm_sender'

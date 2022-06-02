@@ -61,32 +61,6 @@ class TradesController < ApplicationController
     end
   end
 
-  def add_trade_item
-    @trade = Trade.find(trade_item_params[:trade_id])
-    @trade_item = TradeItem.new(manga_id: trade_item_params[:manga_id], trade_id: @trade.id)
-
-    #create(manga_id: params[:manga_id], trade_id: params[:trade_id])
-    if @trade_item.save
-      @trade.update(sender_confirmation: false, recipient_confirmation: false)
-      redirect_to trade_url(@trade), id: @trade_item.trade.recipient.id
-    else
-      redirect_to trade_url(@trade), notice: "Error while adding trade item"
-    end
-  end
-
-  def remove_trade_item
-    @trade = Trade.find(trade_item_params[:trade_id])
-    @trade_item = TradeItem.find_by(manga_id: trade_item_params[:manga_id], trade_id: @trade.id)
-
-    #create(manga_id: params[:manga_id], trade_id: params[:trade_id])
-    if @trade_item.destroy
-      @trade.update(sender_confirmation: false, recipient_confirmation: false)
-      redirect_to trade_url(@trade), id: @trade_item.trade.recipient.id
-    else
-      redirect_to trade_url(@trade), notice: "Error while removing trade item"
-    end
-  end
-
   def confirm_recipient
     @trade = Trade.find(params[:id])
     @recipient_id = @trade.recipient_id
@@ -125,13 +99,19 @@ class TradesController < ApplicationController
     @sender_id = trade.sender.id
     @recipient_id = trade.recipient.id
 
-    trade.trade_items.each { |item|
-      if item.manga.user_id == @recipient_id
-        item.manga.update(user_id: @sender_id)
-      else
-        item.manga.update(user_id: @recipient_id)
+    trade.transaction do
+      begin
+        trade.trade_items.each { |item|
+          if item.manga.user_id == @recipient_id
+            item.manga.update!(user_id: @sender_id)
+          else
+            item.manga.update!(user_id: @recipient_id)
+          end
+        }
+      rescue
+        raise ActiveRecord::Rollback
       end
-    }
+    end
 
     if trade.destroy
       redirect_to trades_url, notice: "Trade successfully completed"
@@ -149,9 +129,5 @@ class TradesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def trade_params
       params.require(:trade).permit(:sender_id, :recipient_id, :sender_confirmation, :recipient_confirmation)
-    end
-
-    def trade_item_params
-      params.permit(:manga_id, :trade_id)
     end
 end

@@ -24,7 +24,7 @@ class TradesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Your Trade Requests"
   end
 
-  test "creating a Trade" do
+  test "make a trade" do
     log_in_user(@user)
     visit user_url(@recipient_user)
     click_on "Send trade request"
