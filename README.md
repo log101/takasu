@@ -9,3 +9,10 @@
 
 - Ruby on Rails
 - React
+
+### How to Run
+* Clone the repository
+* `cd takasu`
+* `docker-compose up -d`
+* Run the migrations with `rails db:migrate`
+* Access the app at localhost:3000
