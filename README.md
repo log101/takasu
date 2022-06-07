@@ -16,5 +16,5 @@
 * `docker-compose up -d`
 * Run the migrations with `rails db:migrate`
 * For email password recovery:
-  - set the environment variable `SENDMAIL_USERNAME` and `SENDMAIL_PASSWORD` with your email and password
-* Access the app at localhost:3000
+  - set the environment variable `SENDMAIL_USERNAME` and `SENDMAIL_PASSWORD` with your google mail accound and password
+* Access the app at localhost:3000 (only gmail is supported)
