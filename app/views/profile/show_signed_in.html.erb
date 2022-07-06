@@ -6,7 +6,7 @@
     <li>
       <%= manga.title %>
       <%= link_to 'Edit', edit_manga_path(manga), class: "edit-link" %>
-      <%= link_to 'Destroy', manga, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-link" %>
+      <%= button_to 'Destroy', manga_path(manga), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-link" %>
     </li>
   <% end %>
 </ul>
