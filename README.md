@@ -9,6 +9,7 @@
 ### How to Run
 * Clone the repository
 * `cd takasu`
+* `yarn install`
 * `docker-compose up -d`
 * Run the migrations with `rails db:migrate`
 * For email password recovery:
