@@ -8,9 +8,6 @@ services:
       - .env/development/database
       - .env/development/web
 
-  redis:
-    image: redis
-
   database:
     image: postgres
     env_file:
