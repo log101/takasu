@@ -11,7 +11,8 @@
 * `cd takasu`
 * `yarn install`
 * `docker-compose up -d`
-* Run the migrations with `rails db:migrate`
+* Create the database with `docker-compose exec web rails db:create`
+* Run the migrations with `docker-compose exec web rails db:migrate`
 * For email password recovery:
   - set the environment variable `SENDMAIL_USERNAME` and `SENDMAIL_PASSWORD` with your google mail account and password
 * Access the app at localhost:3000 (only gmail is supported)
